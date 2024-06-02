@@ -1,8 +1,15 @@
 __pycache__/
 .DS_Store
-data
-!data/.gitkeep
-data/results
+
+# Custom ignored stuffs
+data/*
+
+# But keep the directories themselves
+!data/results/
+
+# Ignore the contents of the specific directories
+data/results/*
+
 !data/results/.gitkeep
 !data/tld.txt
 
