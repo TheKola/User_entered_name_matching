@@ -26,7 +26,13 @@ This project aims to enhance the search functionality for a large database (5 mi
     ```sh
     cd fuzzy-match-search
     ```
-3. Install the required packages:
+3. Set up and activate the virtual environment:
+    ```sh
+    # pip install virtualenv
+    virtualenv [virtual_env_name]
+    [virtual_env_name]/Scripts/activate   
+     ```
+4. Install the required packages:
     ```sh
     pip install -r requirements.txt
     ```
