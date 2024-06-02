@@ -1,7 +1,7 @@
 # Fuzzy Match Search for Company Database
 
 ## Overview
-This project aims to enhance the search functionality for a large database (10 million) of company records by implementing fuzzy string matching. The goal is to provide accurate and quick search results, even when users input incomplete or incorrectly spelled information. The solution also involves cleaning and standardizing URLs in the database.
+This project aims to enhance the search functionality for a large database (5 million) of company records by implementing fuzzy string matching. The goal is to provide accurate and quick search results, even when users input incomplete or incorrectly spelled information. The solution also involves cleaning and standardizing URLs in the database.
 
 ## Features
 - **Fuzzy String Matching:** Handles common errors in user input, such as typos and incomplete names.
@@ -10,7 +10,7 @@ This project aims to enhance the search functionality for a large database (10 m
 
 ## Performance
 - **Improved Search Speed:** Reduces search time from 25 seconds to 2 seconds.
-- **Large Database Handling:** Efficiently processes and searches within a database of over 10 million company records.
+- **Large Database Handling:** Efficiently processes and searches within a database of over 5 million company records.
 
 ## Project Structure
 - `fuzzyMatch.py`: Contains the main code for implementing the fuzzy matching search functionality.
@@ -60,5 +60,5 @@ Contributions are welcome! Please read the [contributing guidelines](CONTRIBUTIN
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgements
-This project was developed to improve the products of The Data City.
+This project was developed at The Data City.
 
