@@ -47,13 +47,21 @@ def main():
     company_names = company_info['fuzzy_company_name'].values.tolist()
     urls = company_info['fuzzy_homepage_domain'].values.tolist()
 
-    while True:
+    user_inputs = pd.read_csv("data/company_name_searches.csv")
+
+    if 'id' not in user_inputs.columns:
+        user_inputs.insert(0, 'id', range(1, 1 + len(user_inputs)))
+
+    results = []
+
+    for ind in user_inputs.index:
         exact_match = pd.DataFrame()
         potential_match = pd.DataFrame()
         score_100_flag = False
 
-        input_name = input("Search Box: ")
-        # input_name = "https://thedatacity.com/"
+        input_id = user_inputs['id'][ind]
+        input_name = user_inputs['company_name'][ind].replace('"','')
+
         from_search = time.time()
 
         cleaned_name = cleaning_input(input_name)
@@ -81,17 +89,27 @@ def main():
 
         if score_100_flag == True:
             print(exact_match[['CompanyNumber', 'CompanyName', 'url']])
+            matches = exact_match['url'].astype(str).tolist() # Change to save comapny name/ number
         else:
             if not potential_match.empty:
                 potential_match = potential_match.sort_values('score', ascending=False)
                 highest_score = potential_match['CompanyName'].iloc[0]
-                print(f"Did you mean {highest_score}?")
-                print("--------------------------------------")
-                print(potential_match[['CompanyNumber', 'CompanyName', 'url']])
-            else:
-                print("No potential matches found.")
+                matches = potential_match['url'].astype(str).tolist() # Change to save comapny name/ number
+                # print(f"Did you mean {highest_score}?")
+                # print("-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/")
+                # print(potential_match[['CompanyNumber', 'CompanyName', 'url']])
+            # else:
+                # print("No potential matches found.")
+        
+        execution_time = time.time() - from_search
+        results.append({'id': input_id, 'matches': ', '.join(matches), 'time_taken': execution_time})
 
-        print(f"Execution time after entering the search: {(time.time() - from_search) :.3f} seconds")
+        # print(f"Execution time after entering the search: {(time.time() - from_search) :.3f} seconds")
+    
+    result_df = pd.DataFrame(results)
+    user_inputs = user_inputs.merge(result_df, on='id', how='left')
+    user_inputs.to_csv("data/company_name_searches.csv", index=False)
 
 if __name__ == "__main__":
     main()
+
