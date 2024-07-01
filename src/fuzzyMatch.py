@@ -47,7 +47,7 @@ def main():
     company_names = company_info['fuzzy_company_name'].values.tolist()
     urls = company_info['fuzzy_homepage_domain'].values.tolist()
 
-    user_inputs = pd.read_csv("data/company_name_searches.csv")
+    user_inputs = pd.read_csv("data/test.csv")
 
     if 'id' not in user_inputs.columns:
         user_inputs.insert(0, 'id', range(1, 1 + len(user_inputs)))
@@ -89,12 +89,12 @@ def main():
 
         if score_100_flag == True:
             print(exact_match[['CompanyNumber', 'CompanyName', 'url']])
-            matches = exact_match['url'].astype(str).tolist() # Change to save comapny name/ number
+            matches = exact_match['CompanyName'].astype(str).tolist() # Change to save comapny name/ number
         else:
             if not potential_match.empty:
                 potential_match = potential_match.sort_values('score', ascending=False)
                 highest_score = potential_match['CompanyName'].iloc[0]
-                matches = potential_match['url'].astype(str).tolist() # Change to save comapny name/ number
+                matches = potential_match['CompanyName'].astype(str).tolist() # Change to save comapny name/ number
                 # print(f"Did you mean {highest_score}?")
                 # print("-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/")
                 # print(potential_match[['CompanyNumber', 'CompanyName', 'url']])
@@ -108,7 +108,7 @@ def main():
     
     result_df = pd.DataFrame(results)
     user_inputs = user_inputs.merge(result_df, on='id', how='left')
-    user_inputs.to_csv("data/company_name_searches.csv", index=False)
+    user_inputs.to_csv("data/test.csv", index=False)
 
 if __name__ == "__main__":
     main()
